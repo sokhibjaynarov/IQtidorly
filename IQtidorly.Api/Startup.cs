@@ -122,12 +122,18 @@ namespace IQtidorly.Api
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IAgeGroupService, AgeGroupService>();
         }
 
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<ISubjectRepository, SubjectRepository>();
+            services.AddScoped<IBookAuthorRepository, BookAuthorRepository>();
+            services.AddScoped<ISubjectChapterRepository, SubjectChapterRepository>();
+            services.AddScoped<IAgeGroupRepository, AgeGroupRepository>();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
         }
     }
