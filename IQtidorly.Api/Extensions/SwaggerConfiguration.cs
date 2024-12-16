@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace IQtidorly.Api.Extensions
 {
@@ -38,6 +41,9 @@ namespace IQtidorly.Api.Extensions
                 };
 
                 c.AddSecurityRequirement(securityRequirement);
+
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                    $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 
             });
         }

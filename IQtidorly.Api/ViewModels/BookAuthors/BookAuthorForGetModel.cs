@@ -2,7 +2,7 @@
 
 namespace IQtidorly.Api.ViewModels.BookAuthors
 {
-    public class BookAuthorForGet
+    public class BookAuthorForGetModel
     {
         public Guid BookAuthorId { get; set; }
         public string FirsName { get; set; }

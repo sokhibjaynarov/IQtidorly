@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IQtidorly.Api.ViewModels.BookAuthors
 {
-    public class BookAuthorForCreate
+    public class BookAuthorForCreateModel
     {
         [Required]
         public string FirsName { get; set; }

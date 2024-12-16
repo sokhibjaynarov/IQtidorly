@@ -37,5 +37,59 @@ namespace IQtidorly.Api.Controllers
                 return JsonResponse.ErrorResponse(ex);
             }
         }
+
+        [HttpPost("update")]
+        public async Task<JsonResponse> UpdateAgeGroup(AgeGroupForUpdateModel viewModel)
+        {
+            try
+            {
+                return JsonResponse.DataResponse(await _ageGroupService.UpdateAgeGroupAsync(viewModel));
+            }
+            catch (Exception ex)
+            {
+                return JsonResponse.ErrorResponse(ex);
+            }
+        }
+
+        [HttpGet("getall")]
+        public async Task<JsonResponse> GetAllAgeGroupAsPagination(int take, int skip)
+        {
+            try
+            {
+                var data = await _ageGroupService.GetAllAgeGroupsAsPaginationAsync(take, skip);
+                var response = new PaginationResponse(data.AgeGroups, skip, take, data.Count);
+                return JsonResponse.DataResponse(response);
+            }
+            catch (Exception ex)
+            {
+                return JsonResponse.ErrorResponse(ex);
+            }
+        }
+
+        [HttpPost("getbyid")]
+        public async Task<JsonResponse> GetAgeGroupById(Guid ageGroupId)
+        {
+            try
+            {
+                return JsonResponse.DataResponse(await _ageGroupService.GetAgeGroupByIdAsync(ageGroupId));
+            }
+            catch (Exception ex)
+            {
+                return JsonResponse.ErrorResponse(ex);
+            }
+        }
+
+        [HttpPost("delete")]
+        public async Task<JsonResponse> DeleteAgeGroup(Guid ageGroupId)
+        {
+            try
+            {
+                return JsonResponse.DataResponse(await _ageGroupService.DeleteAgeGroupAsync(ageGroupId));
+            }
+            catch (Exception ex)
+            {
+                return JsonResponse.ErrorResponse(ex);
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace IQtidorly.Api.Interfaces
 {
     public interface IAgeGroupService
     {
-        Task<(List<AgeGroupForGetModel> AgeGroups, int Count)> GetAllAgeGroupsAsPaginationAync(int limit, int offset);
+        Task<(List<AgeGroupForGetModel> AgeGroups, int Count)> GetAllAgeGroupsAsPaginationAsync(int take, int skip);
         Task<AgeGroupForGetModel> GetAgeGroupByIdAsync(Guid ageGroupId);
         Task<Guid> CreateAgeGroupAsync(AgeGroupForCreateModel ageGroupForCreateModel);
         Task<bool> DeleteAgeGroupAsync(Guid ageGroupId);
