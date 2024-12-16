@@ -14,5 +14,11 @@ namespace IQtidorly.Api.Models.Users
         {
             Name = roleName;
         }
+
+        public Role(Guid roleId, string roleName)
+        {
+            Id = roleId;
+            Name = roleName;
+        }
     }
 }

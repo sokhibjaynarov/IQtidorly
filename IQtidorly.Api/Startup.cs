@@ -12,12 +12,15 @@ using IQtidorly.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IQtidorly.Api
 {
@@ -90,7 +93,7 @@ namespace IQtidorly.Api
             AddServices(services);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment environment, IServiceProvider serviceProvider)
         {
             if (environment.IsDevelopment())
             {
@@ -115,6 +118,9 @@ namespace IQtidorly.Api
             {
                 endpoints.MapControllers();
             });
+
+            // Seed data
+            SeedData(serviceProvider).Wait();
         }
 
         private static void AddServices(IServiceCollection services)
@@ -135,6 +141,22 @@ namespace IQtidorly.Api
             services.AddScoped<ISubjectChapterRepository, SubjectChapterRepository>();
             services.AddScoped<IAgeGroupRepository, AgeGroupRepository>();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
+        }
+
+        private static async Task SeedData(IServiceProvider serviceProvider)
+        {
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                await ContextSeed.SeedRolesAsync(userManager, roleManager);
+                await ContextSeed.SeedUsersAsync(userManager, roleManager);
+                await ContextSeed.SeedSubjectsAndChaptersAsync(context);
+                await ContextSeed.SeedBooksAndAuthorsAsync(context);
+                await ContextSeed.SeedAgeGroupsAsync(context);
+            }
         }
     }
 }
