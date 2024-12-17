@@ -40,6 +40,16 @@ namespace IQtidorly.Api
             services.AddIdentity<User, Role>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            });
+
+
             services.AddControllers();
 
             var mapperConfig = new MapperConfiguration(mc =>
