@@ -1,6 +1,12 @@
 ﻿using IQtidorly.Api.Models.AgeGroups;
 using IQtidorly.Api.Models.BookAuthors;
 using IQtidorly.Api.Models.Books;
+using IQtidorly.Api.Models.OlympiadQuestions;
+using IQtidorly.Api.Models.OlympiadResultAnswers;
+using IQtidorly.Api.Models.OlympiadResults;
+using IQtidorly.Api.Models.Olympiads;
+using IQtidorly.Api.Models.QuestionOptions;
+using IQtidorly.Api.Models.Questions;
 using IQtidorly.Api.Models.SubjectChapters;
 using IQtidorly.Api.Models.Subjects;
 using IQtidorly.Api.Models.Users;
@@ -68,5 +74,11 @@ namespace IQtidorly.Api.Data
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<SubjectChapter> SubjectChapters { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<QuestionOption> QuestionOptions { get; set; }
+        public DbSet<Olympiad> Olympiads { get; set; }
+        public DbSet<OlympiadQuestion> OlympiadQuestions { get; set; }
+        public DbSet<OlympiadResult> OlympiadResults { get; set; }
+        public DbSet<OlympiadResultAnswer> OlympiadResultAnswers { get; set; }
     }
 }

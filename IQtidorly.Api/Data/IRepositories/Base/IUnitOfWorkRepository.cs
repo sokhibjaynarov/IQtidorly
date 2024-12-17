@@ -9,5 +9,11 @@
         public IBookAuthorRepository BookAuthorRepository { get; }
         public ISubjectChapterRepository SubjectChapterRepository { get; }
         public IAgeGroupRepository AgeGroupRepository { get; }
+        public IQuestionRepository QuestionRepository { get; }
+        public IQuestionOptionRepository QuestionOptionRepository { get; }
+        public IOlympiadRepository OlympiadRepository { get; }
+        public IOlympiadQuestionRepository OlympiadQuestionRepository { get; }
+        public IOlympiadResultRepository OlympiadResultRepository { get; }
+        public IOlympiadResultAnswerRepository OlympiadResultAnswerRepository { get; }
     }
 }

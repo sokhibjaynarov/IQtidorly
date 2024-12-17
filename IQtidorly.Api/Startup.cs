@@ -150,6 +150,12 @@ namespace IQtidorly.Api
             services.AddScoped<IBookAuthorRepository, BookAuthorRepository>();
             services.AddScoped<ISubjectChapterRepository, SubjectChapterRepository>();
             services.AddScoped<IAgeGroupRepository, AgeGroupRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IQuestionOptionRepository, QuestionOptionRepository>();
+            services.AddScoped<IOlympiadRepository, OlympiadRepository>();
+            services.AddScoped<IOlympiadQuestionRepository, OlympiadQuestionRepository>();
+            services.AddScoped<IOlympiadResultRepository, OlympiadResultRepository>();
+            services.AddScoped<IOlympiadResultAnswerRepository, OlympiadResultAnswerRepository>();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
         }
 
