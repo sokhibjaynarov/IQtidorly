@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using MimeKit;
 using IQtidorly.Api.Data.IRepositories.Base;
 using IQtidorly.Api.Helpers;
 using IQtidorly.Api.Interfaces;
 using IQtidorly.Api.Response;
 using IQtidorly.Api.Services.Base;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using MimeKit;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -93,6 +93,26 @@ namespace IQtidorly.Api.Services
                 }
 
                 throw new ErrorCodeException(ResponseCodes.ERROR_SAVE_DATA);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<File> GetFileByIdAsync(Guid fileId)
+        {
+            try
+            {
+                var file = await _unitOfWorkRepository.FileRepository.GetAsync(fileId);
+
+                if (file == null)
+                {
+                    throw new ErrorCodeException(ResponseCodes.ERROR_NOT_FOUND_DATA);
+                }
+
+                return file;
             }
             catch (Exception ex)
             {
