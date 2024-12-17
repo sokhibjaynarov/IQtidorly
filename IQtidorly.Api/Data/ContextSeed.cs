@@ -98,7 +98,7 @@ namespace IQtidorly.Api.Data
                 var adminUserWithSameEmail = await userManager.FindByEmailAsync(adminUser.Email);
                 if (adminUserWithSameEmail == null)
                 {
-                    await userManager.CreateAsync(adminUser, "1");
+                    await userManager.CreateAsync(adminUser, "Admin@123");
                     await userManager.AddToRoleAsync(adminUser, Enums.Role.Admin.ToString());
                 }
             }
@@ -121,7 +121,7 @@ namespace IQtidorly.Api.Data
                 var teacherUserWithSameEmail = await userManager.FindByEmailAsync(teacherUser.Email);
                 if (teacherUserWithSameEmail == null)
                 {
-                    await userManager.CreateAsync(teacherUser, "1");
+                    await userManager.CreateAsync(teacherUser, "Teacher@123");
                     await userManager.AddToRoleAsync(teacherUser, Enums.Role.Teacher.ToString());
                 }
             }
@@ -144,7 +144,7 @@ namespace IQtidorly.Api.Data
                 var studentUserWithSameEmail = await userManager.FindByEmailAsync(studentUser.Email);
                 if (studentUserWithSameEmail == null)
                 {
-                    await userManager.CreateAsync(studentUser, "1");
+                    await userManager.CreateAsync(studentUser, "Student@123");
                     await userManager.AddToRoleAsync(studentUser, Enums.Role.Student.ToString());
                 }
             }
