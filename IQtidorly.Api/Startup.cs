@@ -139,6 +139,11 @@ namespace IQtidorly.Api
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IAgeGroupService, AgeGroupService>();
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<ISubjectService, SubjectService>();
+            services.AddScoped<IBookAuthorService, BookAuthorService>();
+            services.AddScoped<ISubjectChapterService, SubjectChapterService>();
+            services.AddScoped<IQuestionService, QuestionService>();
         }
 
         private static void AddRepositories(IServiceCollection services)
