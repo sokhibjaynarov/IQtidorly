@@ -1,5 +1,6 @@
 ﻿using IQtidorly.Api.Interfaces;
 using IQtidorly.Api.Response;
+using IQtidorly.Api.ViewModels.QuizSubmissions;
 using IQtidorly.Api.ViewModels.Quizzes;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,10 +13,14 @@ namespace IQtidorly.Api.Controllers
     public class QuizzesController : ControllerBase
     {
         private readonly IQuizService _quizService;
+        private readonly IQuizSubmissionService _quizSubmissionService;
 
-        public QuizzesController(IQuizService quizService)
+        public QuizzesController(
+            IQuizService quizService,
+            IQuizSubmissionService quizSubmissionService)
         {
             _quizService = quizService;
+            _quizSubmissionService = quizSubmissionService;
         }
 
         [HttpGet("getall")]
@@ -80,6 +85,58 @@ namespace IQtidorly.Api.Controllers
             try
             {
                 return JsonResponse.DataResponse(await _quizService.DeleteQuizAsync(quizId));
+            }
+            catch (Exception ex)
+            {
+                return JsonResponse.ErrorResponse(ex.Message);
+            }
+        }
+
+        [HttpPost("start")]
+        public async Task<JsonResponse> StartQuizAsync([FromQuery] Guid quizId)
+        {
+            try
+            {
+                return JsonResponse.DataResponse(await _quizService.StartQuizAsync(quizId));
+            }
+            catch (Exception ex)
+            {
+                return JsonResponse.ErrorResponse(ex.Message);
+            }
+        }
+
+        [HttpPost("finish")]
+        public async Task<JsonResponse> FinishQuizAsync([FromQuery] Guid quizId)
+        {
+            try
+            {
+                return JsonResponse.DataResponse(await _quizService.FinishQuizAsync(quizId));
+            }
+            catch (Exception ex)
+            {
+                return JsonResponse.ErrorResponse(ex.Message);
+            }
+        }
+
+        [HttpPost("submit")]
+        public async Task<JsonResponse> SubmitQuizAsync([FromBody] SubmitAnswerModel viewModel)
+        {
+            try
+            {
+                return JsonResponse.DataResponse(await _quizSubmissionService.SubmitAnswerAsync(viewModel));
+            }
+            catch (Exception ex)
+            {
+                return JsonResponse.ErrorResponse(ex.Message);
+            }
+        }
+
+        [HttpPost("register")]
+        public async Task<JsonResponse> RegisterToQuizAsync([FromQuery] Guid quizId)
+        {
+            try
+            {
+                return JsonResponse.DataResponse(await _quizService.RegisterToQuizAsync(quizId));
             }
             catch (Exception ex)
             {

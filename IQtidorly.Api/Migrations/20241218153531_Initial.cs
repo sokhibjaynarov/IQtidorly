@@ -210,22 +210,22 @@ namespace IQtidorly.Api.Migrations
                 schema: "iqtidorly",
                 columns: table => new
                 {
-                    QuizResultId = table.Column<Guid>(type: "uuid", nullable: false),
+                    QuizParticipantId = table.Column<Guid>(type: "uuid", nullable: false),
                     QuizId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CorrectCount = table.Column<int>(type: "integer", nullable: false),
                     WrongCount = table.Column<int>(type: "integer", nullable: false),
                     EmptyCount = table.Column<int>(type: "integer", nullable: false),
                     TotalScore = table.Column<int>(type: "integer", nullable: false),
-                    StartedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FinishedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    StartedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    FinishedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     RegisteredDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuizParticipants", x => x.QuizResultId);
+                    table.PrimaryKey("PK_QuizParticipants", x => x.QuizParticipantId);
                     table.ForeignKey(
                         name: "FK_QuizParticipants_Quizzes_QuizId",
                         column: x => x.QuizId,
@@ -460,7 +460,7 @@ namespace IQtidorly.Api.Migrations
                         column: x => x.QuizParticipantId,
                         principalSchema: "iqtidorly",
                         principalTable: "QuizParticipants",
-                        principalColumn: "QuizResultId",
+                        principalColumn: "QuizParticipantId",
                         onDelete: ReferentialAction.Cascade);
                 });
 

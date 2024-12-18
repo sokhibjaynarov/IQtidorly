@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IQtidorly.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241218101707_Initial")]
+    [Migration("20241218153531_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -190,7 +190,7 @@ namespace IQtidorly.Api.Migrations
 
             modelBuilder.Entity("IQtidorly.Api.Models.QuizParticipants.QuizParticipant", b =>
                 {
-                    b.Property<Guid>("QuizResultId")
+                    b.Property<Guid>("QuizParticipantId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -203,7 +203,7 @@ namespace IQtidorly.Api.Migrations
                     b.Property<int>("EmptyCount")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("FinishedAt")
+                    b.Property<DateTime?>("FinishedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("LastModifiedDate")
@@ -215,7 +215,7 @@ namespace IQtidorly.Api.Migrations
                     b.Property<DateTime>("RegisteredDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("StartedAt")
+                    b.Property<DateTime?>("StartedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("TotalScore")
@@ -227,7 +227,7 @@ namespace IQtidorly.Api.Migrations
                     b.Property<int>("WrongCount")
                         .HasColumnType("integer");
 
-                    b.HasKey("QuizResultId");
+                    b.HasKey("QuizParticipantId");
 
                     b.HasIndex("QuizId");
 

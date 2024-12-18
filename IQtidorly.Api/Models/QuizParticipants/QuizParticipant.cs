@@ -12,7 +12,7 @@ namespace IQtidorly.Api.Models.QuizParticipants
     public class QuizParticipant : BaseModel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid QuizResultId { get; set; }
+        public Guid QuizParticipantId { get; set; }
 
         [ForeignKey(nameof(Quiz))]
         public Guid QuizId { get; set; }
@@ -23,8 +23,8 @@ namespace IQtidorly.Api.Models.QuizParticipants
         public int WrongCount { get; set; }
         public int EmptyCount { get; set; }
         public int TotalScore { get; set; }
-        public DateTime StartedAt { get; set; }
-        public DateTime FinishedAt { get; set; }
+        public DateTime? StartedAt { get; set; }
+        public DateTime? FinishedAt { get; set; }
         public DateTime RegisteredDate { get; set; }
 
         public virtual Quiz Quiz { get; set; }

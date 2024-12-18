@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using IQtidorly.Api.Data.IRepositories.Base;
+using IQtidorly.Api.Helpers;
 using IQtidorly.Api.Interfaces;
+using IQtidorly.Api.Models.QuizParticipants;
 using IQtidorly.Api.Models.QuizQuestions;
 using IQtidorly.Api.Models.Quizzes;
 using IQtidorly.Api.Services.Base;
@@ -195,6 +197,135 @@ namespace IQtidorly.Api.Services
                 }
 
                 throw new Exception("Failed to update quiz");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<bool> StartQuizAsync(Guid quizId)
+        {
+            try
+            {
+                var userId = WebHelper.GetUserId(_httpContextAccessor.HttpContext);
+
+                var quizParticipant = await _unitOfWorkRepository.QuizParticipantRepository.GetAll()
+                    .FirstOrDefaultAsync(p => p.UserId == userId && p.QuizId == quizId);
+
+                if (quizParticipant == null)
+                {
+                    throw new Exception("User is not a participant of this quiz");
+                }
+
+                if (quizParticipant.StartedAt.HasValue)
+                {
+                    throw new Exception("Quiz has already started");
+                }
+
+                quizParticipant.StartedAt = DateTime.Now;
+
+                _unitOfWorkRepository.QuizParticipantRepository.Update(quizParticipant);
+
+                if (await _unitOfWorkRepository.QuizParticipantRepository.SaveChangesAsync() > 0)
+                {
+                    return true;
+                }
+
+                throw new Exception("Failed to start quiz");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<bool> FinishQuizAsync(Guid quizId)
+        {
+            try
+            {
+                var userId = WebHelper.GetUserId(_httpContextAccessor.HttpContext);
+
+                var quizParticipant = await _unitOfWorkRepository.QuizParticipantRepository.GetAll()
+                    .FirstOrDefaultAsync(p => p.UserId == userId && p.QuizId == quizId);
+
+                if (quizParticipant == null)
+                {
+                    throw new Exception("User is not a participant of this quiz");
+                }
+
+                if (!quizParticipant.StartedAt.HasValue)
+                {
+                    throw new Exception("Quiz has not started yet");
+                }
+
+                if (quizParticipant.FinishedAt.HasValue)
+                {
+                    throw new Exception("Quiz has already finished");
+                }
+
+                quizParticipant.FinishedAt = DateTime.Now;
+
+                _unitOfWorkRepository.QuizParticipantRepository.Update(quizParticipant);
+
+                if (await _unitOfWorkRepository.QuizParticipantRepository.SaveChangesAsync() > 0)
+                {
+                    return true;
+                }
+
+                throw new Exception("Failed to finish quiz");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<bool> RegisterToQuizAsync(Guid quizId)
+        {
+            try
+            {
+                var userId = WebHelper.GetUserId(_httpContextAccessor.HttpContext);
+
+                var quiz = await _unitOfWorkRepository.QuizRepository.GetAsync(quizId);
+
+                if (quiz == null)
+                {
+                    throw new Exception("Quiz not found");
+                }
+
+                if (quiz.EndDate < DateTime.Now)
+                {
+                    throw new Exception("Quiz has already finished");
+                }
+
+                var quizParticipant = await _unitOfWorkRepository.QuizParticipantRepository.GetAll()
+                    .FirstOrDefaultAsync(p => p.UserId == userId && p.QuizId == quizId);
+
+                if (quizParticipant != null)
+                {
+                    throw new Exception("User is already a participant of this quiz");
+                }
+
+
+                quizParticipant = new QuizParticipant
+                {
+                    QuizId = quizId,
+                    UserId = userId,
+                    RegisteredDate = DateTime.Now
+                };
+
+                await _unitOfWorkRepository.QuizParticipantRepository.AddAsync(quizParticipant);
+
+                if (await _unitOfWorkRepository.QuizParticipantRepository.SaveChangesAsync() > 0)
+                {
+                    return true;
+                }
+
+                throw new Exception("Failed to register to quiz");
             }
             catch (Exception ex)
             {
