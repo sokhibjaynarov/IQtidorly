@@ -4,6 +4,7 @@ using IQtidorly.Api.Models.BookAuthors;
 using IQtidorly.Api.Models.Books;
 using IQtidorly.Api.Models.QuestionOptions;
 using IQtidorly.Api.Models.Questions;
+using IQtidorly.Api.Models.Quizzes;
 using IQtidorly.Api.Models.SubjectChapters;
 using IQtidorly.Api.Models.Subjects;
 using IQtidorly.Api.Models.Users;
@@ -12,6 +13,7 @@ using IQtidorly.Api.ViewModels.BookAuthors;
 using IQtidorly.Api.ViewModels.Books;
 using IQtidorly.Api.ViewModels.QuestionOptions;
 using IQtidorly.Api.ViewModels.Questions;
+using IQtidorly.Api.ViewModels.Quizzes;
 using IQtidorly.Api.ViewModels.SubjectChapters;
 using IQtidorly.Api.ViewModels.Subjects;
 using IQtidorly.Api.ViewModels.Users;
@@ -72,6 +74,16 @@ namespace IQtidorly.Api.AutoMapper
             // QuestionOptions
             CreateMap<QuestionOption, QuestionOptionForSaveModel>().ReverseMap();
             CreateMap<QuestionOption, QuestionOptionForGetModel>().ReverseMap();
+
+            // Quizzes
+            CreateMap<QuizForCreateModel, Quiz>()
+                .ForMember(dest => dest.QuizQuestions, opt => opt.Ignore());
+
+            CreateMap<QuizForUpdateModel, Quiz>()
+                .ForMember(dest => dest.QuizQuestions, opt => opt.Ignore());
+
+            CreateMap<Quiz, QuizForGetModel>().ReverseMap();
+
         }
     }
 }
