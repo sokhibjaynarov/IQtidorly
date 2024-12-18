@@ -1,18 +1,20 @@
 ﻿using IQtidorly.Api.Models.Base;
-using IQtidorly.Api.Models.OlympiadResults;
 using IQtidorly.Api.Models.QuestionOptions;
 using IQtidorly.Api.Models.Questions;
+using IQtidorly.Api.Models.QuizParticipants;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IQtidorly.Api.Models.OlympiadResultAnswers
+namespace IQtidorly.Api.Models.QuizSubmissions
 {
-    public class OlympiadResultAnswer : BaseModel
+    public class QuizSubmission : BaseModel
     {
-        public Guid OlympiadResultAnswerId { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid QuizSubmissionId { get; set; }
 
-        [ForeignKey(nameof(OlympiadResult))]
-        public Guid OlympiadResultId { get; set; }
+        [ForeignKey(nameof(QuizParticipant))]
+        public Guid QuizParticipantId { get; set; }
 
         [ForeignKey(nameof(Question))]
         public Guid QuestionId { get; set; }
@@ -22,7 +24,7 @@ namespace IQtidorly.Api.Models.OlympiadResultAnswers
         [ForeignKey(nameof(QuestionOption))]
         public Guid? SelectedOptionId { get; set; }
 
-        public virtual OlympiadResult OlympiadResult { get; set; }
+        public virtual QuizParticipant QuizParticipant { get; set; }
         public virtual Question Question { get; set; }
         public virtual QuestionOption SelectedOption { get; set; }
     }

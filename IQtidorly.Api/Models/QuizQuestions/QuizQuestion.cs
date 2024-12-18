@@ -1,20 +1,25 @@
 ﻿using IQtidorly.Api.Models.Base;
 using IQtidorly.Api.Models.Questions;
+using IQtidorly.Api.Models.Quizzes;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IQtidorly.Api.Models.QuestionOptions
+namespace IQtidorly.Api.Models.QuizQuestions
 {
-    public class QuestionOption : BaseModel
+    public class QuizQuestion : BaseModel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid QuestionOptionId { get; set; }
-        public string Content { get; set; }
-        public bool IsCorrect { get; set; }
+        public Guid QuizQuestionId { get; set; }
+
+        [ForeignKey(nameof(Quiz))]
+        public Guid QuizId { get; set; }
 
         [ForeignKey(nameof(Question))]
         public Guid QuestionId { get; set; }
+        public int Order { get; set; }
+
+        public virtual Quiz Quiz { get; set; }
         public virtual Question Question { get; set; }
     }
 }

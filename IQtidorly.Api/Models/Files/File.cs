@@ -9,6 +9,7 @@ namespace IQtidorly.Api.Models.Files
 {
     public class File : BaseModel, IEntityAuthorship
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid FileId { get; set; }
 
         [Required]

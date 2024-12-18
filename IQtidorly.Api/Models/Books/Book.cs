@@ -1,12 +1,14 @@
 ﻿using IQtidorly.Api.Models.Base;
 using IQtidorly.Api.Models.BookAuthors;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IQtidorly.Api.Models.Books
 {
     public class Book : BaseModel
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid BookId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

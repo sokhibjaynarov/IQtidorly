@@ -1,10 +1,13 @@
 ﻿using IQtidorly.Api.Models.Base;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IQtidorly.Api.Models.AgeGroups
 {
     public class AgeGroup : BaseModel
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid AgeGroupId { get; set; }
         public string Name { get; set; }
         public int MinAge { get; set; }

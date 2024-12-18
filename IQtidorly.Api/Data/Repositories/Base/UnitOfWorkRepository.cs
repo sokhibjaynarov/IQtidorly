@@ -13,10 +13,10 @@ namespace IQtidorly.Api.Data.Repositories.Base
             ISubjectChapterRepository subjectChapterRepository,
             ISubjectRepository subjectRepository,
             IAgeGroupRepository ageGroupRepository,
-            IOlympiadQuestionRepository olympiadQuestionRepository,
-            IOlympiadRepository olympiadRepository,
-            IOlympiadResultRepository olympiadResultRepository,
-            IOlympiadResultAnswerRepository olympiadResultAnswerRepository,
+            IQuizQuestionRepository olympiadQuestionRepository,
+            IQuizRepository olympiadRepository,
+            IQuizParticipantRepository olympiadResultRepository,
+            IQuizSubmissionRepository olympiadResultAnswerRepository,
             IQuestionOptionRepository questionOptionRepository,
             IQuestionRepository questionRepository)
         {
@@ -44,9 +44,9 @@ namespace IQtidorly.Api.Data.Repositories.Base
         public IAgeGroupRepository AgeGroupRepository { get; }
         public IQuestionRepository QuestionRepository { get; }
         public IQuestionOptionRepository QuestionOptionRepository { get; }
-        public IOlympiadRepository OlympiadRepository { get; }
-        public IOlympiadQuestionRepository OlympiadQuestionRepository { get; }
-        public IOlympiadResultRepository OlympiadResultRepository { get; }
-        public IOlympiadResultAnswerRepository OlympiadResultAnswerRepository { get; }
+        public IQuizRepository OlympiadRepository { get; }
+        public IQuizQuestionRepository OlympiadQuestionRepository { get; }
+        public IQuizParticipantRepository OlympiadResultRepository { get; }
+        public IQuizSubmissionRepository OlympiadResultAnswerRepository { get; }
     }
 }

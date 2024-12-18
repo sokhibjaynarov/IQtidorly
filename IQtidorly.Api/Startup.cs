@@ -157,10 +157,10 @@ namespace IQtidorly.Api
             services.AddScoped<IAgeGroupRepository, AgeGroupRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IQuestionOptionRepository, QuestionOptionRepository>();
-            services.AddScoped<IOlympiadRepository, OlympiadRepository>();
-            services.AddScoped<IOlympiadQuestionRepository, OlympiadQuestionRepository>();
-            services.AddScoped<IOlympiadResultRepository, OlympiadResultRepository>();
-            services.AddScoped<IOlympiadResultAnswerRepository, OlympiadResultAnswerRepository>();
+            services.AddScoped<IQuizRepository, QuizRepository>();
+            services.AddScoped<IQuizQuestionRepository, QuizQuestionRepository>();
+            services.AddScoped<IQuizParticipantRepository, QuizParticipantRepository>();
+            services.AddScoped<IQuizSubmissionRepository, QuizSubmissionRepository>();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
         }
 

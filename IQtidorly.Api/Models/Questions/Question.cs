@@ -5,12 +5,14 @@ using IQtidorly.Api.Models.QuestionOptions;
 using IQtidorly.Api.Models.SubjectChapters;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IQtidorly.Api.Models.Questions
 {
     public class Question : BaseModel
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid QuestionId { get; set; }
         public string Content { get; set; }
         public QuestionType Type { get; set; }
