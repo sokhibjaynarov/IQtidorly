@@ -7,7 +7,10 @@ namespace IQtidorly.Api.Interfaces
 {
     public interface IQuestionService
     {
-        Task<(List<QuestionForGetModel> Questions, int Count)> GetAllQuestionsAsPaginationAsync(int take, int skip);
+        Task<(List<QuestionForGetListModel> Questions, int Count)> GetAllQuestionsAsPaginationAsync(int take, int skip);
         Task<Guid> CreateQuestionAsync(QuestionForCreateModel questionForCreateModel);
+        Task<QuestionForGetModel> GetQuestionByIdAsync(Guid questionId);
+        Task<bool> UpdateQuestionAsync(QuestionForUpdateModel viewModel);
+        Task<bool> DeleteQuestionAsync(Guid questionId);
     }
 }

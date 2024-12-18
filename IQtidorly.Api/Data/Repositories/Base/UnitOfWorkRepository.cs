@@ -13,10 +13,10 @@ namespace IQtidorly.Api.Data.Repositories.Base
             ISubjectChapterRepository subjectChapterRepository,
             ISubjectRepository subjectRepository,
             IAgeGroupRepository ageGroupRepository,
-            IQuizQuestionRepository olympiadQuestionRepository,
-            IQuizRepository olympiadRepository,
-            IQuizParticipantRepository olympiadResultRepository,
-            IQuizSubmissionRepository olympiadResultAnswerRepository,
+            IQuizQuestionRepository quizQuestionRepository,
+            IQuizRepository quizRepository,
+            IQuizParticipantRepository quizParticipantRepository,
+            IQuizSubmissionRepository quizSubmissionRepository,
             IQuestionOptionRepository questionOptionRepository,
             IQuestionRepository questionRepository)
         {
@@ -29,10 +29,10 @@ namespace IQtidorly.Api.Data.Repositories.Base
             AgeGroupRepository = ageGroupRepository;
             QuestionRepository = questionRepository;
             QuestionOptionRepository = questionOptionRepository;
-            OlympiadRepository = olympiadRepository;
-            OlympiadQuestionRepository = olympiadQuestionRepository;
-            OlympiadResultRepository = olympiadResultRepository;
-            OlympiadResultAnswerRepository = olympiadResultAnswerRepository;
+            QuizRepository = quizRepository;
+            QuizQuestionRepository = quizQuestionRepository;
+            QuizParticipantRepository = quizParticipantRepository;
+            QuizSubmissionRepository = quizSubmissionRepository;
         }
 
         public IUserRepository UserRepository { get; }
@@ -44,9 +44,9 @@ namespace IQtidorly.Api.Data.Repositories.Base
         public IAgeGroupRepository AgeGroupRepository { get; }
         public IQuestionRepository QuestionRepository { get; }
         public IQuestionOptionRepository QuestionOptionRepository { get; }
-        public IQuizRepository OlympiadRepository { get; }
-        public IQuizQuestionRepository OlympiadQuestionRepository { get; }
-        public IQuizParticipantRepository OlympiadResultRepository { get; }
-        public IQuizSubmissionRepository OlympiadResultAnswerRepository { get; }
+        public IQuizRepository QuizRepository { get; }
+        public IQuizQuestionRepository QuizQuestionRepository { get; }
+        public IQuizParticipantRepository QuizParticipantRepository { get; }
+        public IQuizSubmissionRepository QuizSubmissionRepository { get; }
     }
 }

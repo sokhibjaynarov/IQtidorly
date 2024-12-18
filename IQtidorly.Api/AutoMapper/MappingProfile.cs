@@ -51,11 +51,27 @@ namespace IQtidorly.Api.AutoMapper
             CreateMap<SubjectChapter, SubjectChapterForGetModel>().ReverseMap();
 
             // Questions
-            CreateMap<Question, QuestionForCreateModel>().ReverseMap();
-            CreateMap<Question, QuestionForGetModel>().ReverseMap();
+            CreateMap<QuestionForCreateModel, Question>()
+                .ForMember(dest => dest.Options, opt => opt.Ignore());
+
+            CreateMap<QuestionForUpdateModel, Question>()
+                .ForMember(dest => dest.Options, opt => opt.Ignore());
+
+            CreateMap<Question, QuestionForGetListModel>()
+                .ForMember(p => p.SubjectName, opt => opt.MapFrom(src => src.SubjectChapter.Subject.Name))
+                .ForMember(p => p.SubjectId, opt => opt.MapFrom(src => src.SubjectChapter.SubjectId))
+                .ForMember(p => p.ChapterName, opt => opt.MapFrom(src => src.SubjectChapter.Name))
+                .ForMember(p => p.AgeGroupName, opt => opt.MapFrom(src => src.AgeGroup.Name));
+
+            CreateMap<Question, QuestionForGetModel>()
+                .ForMember(p => p.SubjectName, opt => opt.MapFrom(src => src.SubjectChapter.Subject.Name))
+                .ForMember(p => p.SubjectId, opt => opt.MapFrom(src => src.SubjectChapter.SubjectId))
+                .ForMember(p => p.ChapterName, opt => opt.MapFrom(src => src.SubjectChapter.Name))
+                .ForMember(p => p.AgeGroupName, opt => opt.MapFrom(src => src.AgeGroup.Name));
 
             // QuestionOptions
             CreateMap<QuestionOption, QuestionOptionForSaveModel>().ReverseMap();
+            CreateMap<QuestionOption, QuestionOptionForGetModel>().ReverseMap();
         }
     }
 }

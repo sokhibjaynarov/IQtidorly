@@ -1,4 +1,5 @@
-﻿using IQtidorly.Api.Models.Base;
+﻿using IQtidorly.Api.Enums;
+using IQtidorly.Api.Models.Base;
 using IQtidorly.Api.Models.QuizQuestions;
 using System;
 using System.Collections.ObjectModel;
@@ -13,8 +14,11 @@ namespace IQtidorly.Api.Models.Quizzes
         public Guid QuizId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public QuizType QuizType { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public DateTime RegistrationStartDate { get; set; }
+        public DateTime RegistrationEndDate { get; set; }
 
         public virtual Collection<QuizQuestion> QuizQuestions { get; set; }
     }
