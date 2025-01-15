@@ -66,6 +66,10 @@ namespace IQtidorly.Api.Data
             {
                 entity.ToTable("UserTokens");
             });
+
+            modelBuilder.Entity<AgeGroup>()
+                .Property(ag => ag.Translation)
+                .HasColumnType("jsonb");
         }
 
 

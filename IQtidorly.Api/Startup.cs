@@ -18,8 +18,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IQtidorly.Api
@@ -35,7 +35,13 @@ namespace IQtidorly.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(db => db.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            // Configure the DbContext to use Npgsql with additional options
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                var dataSourceBuilder = new NpgsqlDataSourceBuilder(Configuration.GetConnectionString("DefaultConnection"));
+                dataSourceBuilder.EnableDynamicJson();
+                options.UseNpgsql(dataSourceBuilder.Build());
+            });
 
             services.AddIdentity<User, Role>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -78,7 +84,7 @@ namespace IQtidorly.Api
                     opts.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter()));
 
             #region JWT Authentication
-            var key = Encoding.UTF8.GetBytes(Configuration.GetSection("JWT:Key").Value);
+            var key = System.Text.Encoding.UTF8.GetBytes(Configuration.GetSection("JWT:Key").Value);
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
