@@ -6,7 +6,9 @@ using IQtidorly.Api.Data.IRepositories.Base;
 using IQtidorly.Api.Data.Repositories;
 using IQtidorly.Api.Data.Repositories.Base;
 using IQtidorly.Api.Extensions;
+using IQtidorly.Api.Helpers;
 using IQtidorly.Api.Interfaces;
+using IQtidorly.Api.Middlewares;
 using IQtidorly.Api.Models.Users;
 using IQtidorly.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -130,6 +132,8 @@ namespace IQtidorly.Api
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMiddleware<SetLanguageMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -150,6 +154,8 @@ namespace IQtidorly.Api
             services.AddScoped<IBookAuthorService, BookAuthorService>();
             services.AddScoped<ISubjectChapterService, SubjectChapterService>();
             services.AddScoped<IQuestionService, QuestionService>();
+
+            services.AddScoped<IRequestLanguageHelper, RequestLanguageHelper>();
         }
 
         private static void AddRepositories(IServiceCollection services)

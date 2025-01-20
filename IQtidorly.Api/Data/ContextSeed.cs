@@ -1,4 +1,5 @@
 ﻿using IQtidorly.Api.Models.AgeGroups;
+using IQtidorly.Api.Models.Base;
 using IQtidorly.Api.Models.BookAuthors;
 using IQtidorly.Api.Models.Books;
 using IQtidorly.Api.Models.SubjectChapters;
@@ -307,7 +308,19 @@ namespace IQtidorly.Api.Data
                 context.AgeGroups.Add(new AgeGroup
                 {
                     AgeGroupId = _childrenAgeGroupId,
-                    Name = "Children"
+                    Name = "Children",
+                    MinAge = 5,
+                    MaxAge = 15,
+                    Translation = new AgeGroupTranslation
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Bolalar",
+                            ru_RU = "Дети",
+                            en_US = "Children",
+                            kaa_UZ = "Bolalar"
+                        }
+                    }
                 });
             }
 
@@ -316,7 +329,19 @@ namespace IQtidorly.Api.Data
                 context.AgeGroups.Add(new AgeGroup
                 {
                     AgeGroupId = _teenagersAgeGroupId,
-                    Name = "Teenagers"
+                    Name = "Teenagers",
+                    MinAge = 16,
+                    MaxAge = 24,
+                    Translation = new AgeGroupTranslation
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Yoshlar",
+                            ru_RU = "Подростки",
+                            en_US = "Teenagers",
+                            kaa_UZ = "Yoshlar"
+                        }
+                    }
                 });
             }
 
@@ -325,7 +350,19 @@ namespace IQtidorly.Api.Data
                 context.AgeGroups.Add(new AgeGroup
                 {
                     AgeGroupId = _adultsAgeGroupId,
-                    Name = "Adults"
+                    Name = "Adults",
+                    MinAge = 25,
+                    MaxAge = 45,
+                    Translation = new AgeGroupTranslation
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "O'rgalar",
+                            ru_RU = "Взрослые",
+                            en_US = "Adults",
+                            kaa_UZ = "O'rgalar"
+                        }
+                    }
                 });
             }
 

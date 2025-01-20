@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IQtidorly.Api.Models.AgeGroups;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace IQtidorly.Api.ViewModels.AgeGroups
@@ -16,5 +17,8 @@ namespace IQtidorly.Api.ViewModels.AgeGroups
 
         [Required]
         public int MaxAge { get; set; }
+
+        [Required]
+        public AgeGroupTranslation Translation { get; set; }
     }
 }
