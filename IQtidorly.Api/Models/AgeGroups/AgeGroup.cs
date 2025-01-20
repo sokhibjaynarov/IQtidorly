@@ -17,6 +17,6 @@ namespace IQtidorly.Api.Models.AgeGroups
         public int MaxAge { get; set; }
 
         [Column(TypeName = "jsonb")]
-        public AgeGroupTranslation Translation { get; set; }
+        public AgeGroupTranslation Translations { get; set; }
     }
 }

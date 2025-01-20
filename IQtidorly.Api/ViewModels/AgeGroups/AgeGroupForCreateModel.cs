@@ -14,6 +14,6 @@ namespace IQtidorly.Api.ViewModels.AgeGroups
         [Required]
         public int MaxAge { get; set; }
 
-        public AgeGroupTranslation Translation { get; set; }
+        public AgeGroupTranslation Translations { get; set; }
     }
 }

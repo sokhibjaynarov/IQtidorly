@@ -311,7 +311,7 @@ namespace IQtidorly.Api.Data
                     Name = "Children",
                     MinAge = 5,
                     MaxAge = 15,
-                    Translation = new AgeGroupTranslation
+                    Translations = new AgeGroupTranslation
                     {
                         Name = new TranslationModel
                         {
@@ -332,7 +332,7 @@ namespace IQtidorly.Api.Data
                     Name = "Teenagers",
                     MinAge = 16,
                     MaxAge = 24,
-                    Translation = new AgeGroupTranslation
+                    Translations = new AgeGroupTranslation
                     {
                         Name = new TranslationModel
                         {
@@ -353,7 +353,7 @@ namespace IQtidorly.Api.Data
                     Name = "Adults",
                     MinAge = 25,
                     MaxAge = 45,
-                    Translation = new AgeGroupTranslation
+                    Translations = new AgeGroupTranslation
                     {
                         Name = new TranslationModel
                         {

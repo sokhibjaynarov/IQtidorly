@@ -18,6 +18,9 @@ namespace IQtidorly.Api.Models.Books
         public int TotalPages { get; set; }
         public decimal Price { get; set; }
 
+        [Column(TypeName = "jsonb")]
+        public BookTranslation Translations { get; set; }
+
         [ForeignKey(nameof(BookAuthor))]
         public Guid BookAuthorId { get; set; }
 

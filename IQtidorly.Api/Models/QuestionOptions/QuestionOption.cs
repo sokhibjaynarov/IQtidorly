@@ -13,6 +13,9 @@ namespace IQtidorly.Api.Models.QuestionOptions
         public string Content { get; set; }
         public bool IsCorrect { get; set; }
 
+        [Column(TypeName = "jsonb")]
+        public QuestionOptionTranslation Translations { get; set; }
+
         [ForeignKey(nameof(Question))]
         public Guid QuestionId { get; set; }
         public virtual Question Question { get; set; }

@@ -15,6 +15,9 @@ namespace IQtidorly.Api.Models.BookAuthors
         public string LastName { get; set; }
         public Guid PhotoFileId { get; set; }
 
+        [Column(TypeName = "jsonb")]
+        public BookAuthorTranslation Translations { get; set; }
+
         public Collection<Book> Books { get; set; }
     }
 }

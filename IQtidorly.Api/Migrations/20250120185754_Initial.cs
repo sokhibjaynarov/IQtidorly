@@ -1,4 +1,11 @@
 ﻿using System;
+using IQtidorly.Api.Models.AgeGroups;
+using IQtidorly.Api.Models.BookAuthors;
+using IQtidorly.Api.Models.Books;
+using IQtidorly.Api.Models.QuestionOptions;
+using IQtidorly.Api.Models.Quizzes;
+using IQtidorly.Api.Models.SubjectChapters;
+using IQtidorly.Api.Models.Subjects;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -24,6 +31,7 @@ namespace IQtidorly.Api.Migrations
                     Name = table.Column<string>(type: "text", nullable: true),
                     MinAge = table.Column<int>(type: "integer", nullable: false),
                     MaxAge = table.Column<int>(type: "integer", nullable: false),
+                    Translations = table.Column<AgeGroupTranslation>(type: "jsonb", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -41,6 +49,7 @@ namespace IQtidorly.Api.Migrations
                     FirsName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     PhotoFileId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Translations = table.Column<BookAuthorTranslation>(type: "jsonb", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -62,6 +71,7 @@ namespace IQtidorly.Api.Migrations
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     RegistrationStartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     RegistrationEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Translations = table.Column<QuizTranslation>(type: "jsonb", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -92,6 +102,7 @@ namespace IQtidorly.Api.Migrations
                 {
                     SubjectId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
+                    Translations = table.Column<SubjectTranslation>(type: "jsonb", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -143,6 +154,7 @@ namespace IQtidorly.Api.Migrations
                     FileId = table.Column<Guid>(type: "uuid", nullable: false),
                     TotalPages = table.Column<int>(type: "integer", nullable: false),
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    Translations = table.Column<BookTranslation>(type: "jsonb", nullable: true),
                     BookAuthorId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -189,6 +201,7 @@ namespace IQtidorly.Api.Migrations
                 {
                     SubjectChapterId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
+                    Translations = table.Column<SubjectChapterTranslation>(type: "jsonb", nullable: true),
                     SubjectId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -378,6 +391,7 @@ namespace IQtidorly.Api.Migrations
                     QuestionOptionId = table.Column<Guid>(type: "uuid", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: true),
                     IsCorrect = table.Column<bool>(type: "boolean", nullable: false),
+                    Translations = table.Column<QuestionOptionTranslation>(type: "jsonb", nullable: true),
                     QuestionId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)

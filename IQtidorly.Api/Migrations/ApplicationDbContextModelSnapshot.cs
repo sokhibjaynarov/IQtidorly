@@ -2,6 +2,12 @@
 using System;
 using IQtidorly.Api.Data;
 using IQtidorly.Api.Models.AgeGroups;
+using IQtidorly.Api.Models.BookAuthors;
+using IQtidorly.Api.Models.Books;
+using IQtidorly.Api.Models.QuestionOptions;
+using IQtidorly.Api.Models.Quizzes;
+using IQtidorly.Api.Models.SubjectChapters;
+using IQtidorly.Api.Models.Subjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -45,7 +51,7 @@ namespace IQtidorly.Api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<AgeGroupTranslation>("Translation")
+                    b.Property<AgeGroupTranslation>("Translations")
                         .HasColumnType("jsonb");
 
                     b.HasKey("AgeGroupId");
@@ -73,6 +79,9 @@ namespace IQtidorly.Api.Migrations
 
                     b.Property<Guid>("PhotoFileId")
                         .HasColumnType("uuid");
+
+                    b.Property<BookAuthorTranslation>("Translations")
+                        .HasColumnType("jsonb");
 
                     b.HasKey("BookAuthorId");
 
@@ -115,6 +124,9 @@ namespace IQtidorly.Api.Migrations
                     b.Property<int>("TotalPages")
                         .HasColumnType("integer");
 
+                    b.Property<BookTranslation>("Translations")
+                        .HasColumnType("jsonb");
+
                     b.HasKey("BookId");
 
                     b.HasIndex("BookAuthorId");
@@ -142,6 +154,9 @@ namespace IQtidorly.Api.Migrations
 
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uuid");
+
+                    b.Property<QuestionOptionTranslation>("Translations")
+                        .HasColumnType("jsonb");
 
                     b.HasKey("QuestionOptionId");
 
@@ -338,6 +353,9 @@ namespace IQtidorly.Api.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
+                    b.Property<QuizTranslation>("Translations")
+                        .HasColumnType("jsonb");
+
                     b.HasKey("QuizId");
 
                     b.ToTable("Quizzes", "iqtidorly");
@@ -361,6 +379,9 @@ namespace IQtidorly.Api.Migrations
                     b.Property<Guid>("SubjectId")
                         .HasColumnType("uuid");
 
+                    b.Property<SubjectChapterTranslation>("Translations")
+                        .HasColumnType("jsonb");
+
                     b.HasKey("SubjectChapterId");
 
                     b.HasIndex("SubjectId");
@@ -382,6 +403,9 @@ namespace IQtidorly.Api.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<SubjectTranslation>("Translations")
+                        .HasColumnType("jsonb");
 
                     b.HasKey("SubjectId");
 

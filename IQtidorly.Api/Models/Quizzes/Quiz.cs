@@ -20,6 +20,9 @@ namespace IQtidorly.Api.Models.Quizzes
         public DateTime RegistrationStartDate { get; set; }
         public DateTime RegistrationEndDate { get; set; }
 
+        [Column(TypeName = "jsonb")]
+        public QuizTranslation Translations { get; set; }
+
         public virtual Collection<QuizQuestion> QuizQuestions { get; set; }
     }
 }

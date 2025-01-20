@@ -66,7 +66,7 @@ namespace IQtidorly.Api.Controllers
             }
         }
 
-        [HttpPost("getbyid")]
+        [HttpGet("getbyid")]
         public async Task<JsonResponse> GetAgeGroupById(Guid ageGroupId)
         {
             try

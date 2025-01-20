@@ -12,6 +12,9 @@ namespace IQtidorly.Api.Models.SubjectChapters
         public Guid SubjectChapterId { get; set; }
         public string Name { get; set; }
 
+        [Column(TypeName = "jsonb")]
+        public SubjectChapterTranslation Translations { get; set; }
+
         [ForeignKey(nameof(Subject))]
         public Guid SubjectId { get; set; }
         public Subject Subject { get; set; }

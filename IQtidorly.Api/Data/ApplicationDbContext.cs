@@ -68,7 +68,7 @@ namespace IQtidorly.Api.Data
             });
 
             modelBuilder.Entity<AgeGroup>()
-                .Property(ag => ag.Translation)
+                .Property(ag => ag.Translations)
                 .HasColumnType("jsonb");
         }
 
