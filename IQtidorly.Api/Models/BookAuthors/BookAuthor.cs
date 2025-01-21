@@ -11,7 +11,7 @@ namespace IQtidorly.Api.Models.BookAuthors
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid BookAuthorId { get; set; }
-        public string FirsName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public Guid PhotoFileId { get; set; }
 

@@ -68,7 +68,7 @@ namespace IQtidorly.Api.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("FirsName")
+                    b.Property<string>("FirstName")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("LastModifiedDate")

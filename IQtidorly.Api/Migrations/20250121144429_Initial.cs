@@ -46,7 +46,7 @@ namespace IQtidorly.Api.Migrations
                 columns: table => new
                 {
                     BookAuthorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirsName = table.Column<string>(type: "text", nullable: true),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     PhotoFileId = table.Column<Guid>(type: "uuid", nullable: false),
                     Translations = table.Column<BookAuthorTranslation>(type: "jsonb", nullable: true),

@@ -19,7 +19,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IQtidorly.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250120185754_Initial")]
+    [Migration("20250121144429_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -71,7 +71,7 @@ namespace IQtidorly.Api.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("FirsName")
+                    b.Property<string>("FirstName")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("LastModifiedDate")

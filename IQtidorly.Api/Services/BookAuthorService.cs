@@ -31,7 +31,7 @@ namespace IQtidorly.Api.Services
             try
             {
                 var exitingBookAuthor = await _unitOfWorkRepository.BookAuthorRepository
-                    .GetAll().FirstOrDefaultAsync(x => x.FirsName == bookAuthorForCreateModel.FirsName &&
+                    .GetAll().FirstOrDefaultAsync(x => x.FirstName == bookAuthorForCreateModel.FirsName &&
                         x.LastName == bookAuthorForCreateModel.LastName);
 
                 if (exitingBookAuthor != null)

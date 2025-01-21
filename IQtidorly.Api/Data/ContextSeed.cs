@@ -159,7 +159,17 @@ namespace IQtidorly.Api.Data
                 context.Subjects.Add(new Subject
                 {
                     SubjectId = _mathematicsSubjectId,
-                    Name = "Mathematics"
+                    Name = "Mathematics",
+                    Translations = new SubjectTranslation()
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Matematika",
+                            ru_RU = "Математика",
+                            en_US = "Mathematics",
+                            kaa_UZ = "Matematika"
+                        }
+                    }
                 });
             }
 
@@ -168,7 +178,17 @@ namespace IQtidorly.Api.Data
                 context.Subjects.Add(new Subject
                 {
                     SubjectId = _physicsSubjectId,
-                    Name = "Physics"
+                    Name = "Physics",
+                    Translations = new SubjectTranslation()
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Fizika",
+                            ru_RU = "Физика",
+                            en_US = "Physics",
+                            kaa_UZ = "Fizika"
+                        }
+                    }
                 });
             }
 
@@ -177,7 +197,17 @@ namespace IQtidorly.Api.Data
                 context.Subjects.Add(new Subject
                 {
                     SubjectId = _chemistrySubjectId,
-                    Name = "Chemistry"
+                    Name = "Chemistry",
+                    Translations = new SubjectTranslation()
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Kimyo",
+                            ru_RU = "Химия",
+                            en_US = "Chemistry",
+                            kaa_UZ = "Kimyo"
+                        }
+                    }
                 });
             }
 
@@ -188,6 +218,16 @@ namespace IQtidorly.Api.Data
                 {
                     SubjectChapterId = _algebraChapterId,
                     Name = "Algebra",
+                    Translations = new SubjectChapterTranslation
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Algebra",
+                            ru_RU = "Алгебра",
+                            en_US = "Algebra",
+                            kaa_UZ = "Algebra"
+                        }
+                    },
                     SubjectId = _mathematicsSubjectId
                 });
             }
@@ -198,6 +238,16 @@ namespace IQtidorly.Api.Data
                 {
                     SubjectChapterId = _geometryChapterId,
                     Name = "Geometry",
+                    Translations = new SubjectChapterTranslation
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Geometriya",
+                            ru_RU = "Геометрия",
+                            en_US = "Geometry",
+                            kaa_UZ = "Geometriya"
+                        }
+                    },
                     SubjectId = _mathematicsSubjectId
                 });
             }
@@ -209,6 +259,16 @@ namespace IQtidorly.Api.Data
                 {
                     SubjectChapterId = _mechanicsChapterId,
                     Name = "Mechanics",
+                    Translations = new SubjectChapterTranslation
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Mexanika",
+                            ru_RU = "Механика",
+                            en_US = "Mechanics",
+                            kaa_UZ = "Mexanika"
+                        }
+                    },
                     SubjectId = _physicsSubjectId
                 });
             }
@@ -219,6 +279,16 @@ namespace IQtidorly.Api.Data
                 {
                     SubjectChapterId = _opticsChapterId,
                     Name = "Optics",
+                    Translations = new SubjectChapterTranslation
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Optika",
+                            ru_RU = "Оптика",
+                            en_US = "Optics",
+                            kaa_UZ = "Optika"
+                        }
+                    },
                     SubjectId = _physicsSubjectId
                 });
             }
@@ -230,6 +300,16 @@ namespace IQtidorly.Api.Data
                 {
                     SubjectChapterId = _organicChemistryChapterId,
                     Name = "Organic Chemistry",
+                    Translations = new SubjectChapterTranslation
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Organik Kimyo",
+                            ru_RU = "Органическая химия",
+                            en_US = "Organic Chemistry",
+                            kaa_UZ = "Organik Kimyo"
+                        }
+                    },
                     SubjectId = _chemistrySubjectId
                 });
             }
@@ -240,6 +320,16 @@ namespace IQtidorly.Api.Data
                 {
                     SubjectChapterId = _inorganicChemistryChapterId,
                     Name = "Inorganic Chemistry",
+                    Translations = new SubjectChapterTranslation
+                    {
+                        Name = new TranslationModel
+                        {
+                            uz_UZ = "Inorganik Kimyo",
+                            ru_RU = "Неорганическая химия",
+                            en_US = "Inorganic Chemistry",
+                            kaa_UZ = "Inorganik Kimyo"
+                        }
+                    },
                     SubjectId = _chemistrySubjectId
                 });
             }
@@ -255,8 +345,25 @@ namespace IQtidorly.Api.Data
                 context.BookAuthors.Add(new BookAuthor
                 {
                     BookAuthorId = _jKRowlingAuthorId,
-                    FirsName = "J.K.",
-                    LastName = "Rowling"
+                    FirstName = "J.K.",
+                    LastName = "Rowling",
+                    Translations = new BookAuthorTranslation
+                    {
+                        FirstName = new TranslationModel
+                        {
+                            uz_UZ = "J.K.",
+                            ru_RU = "Дж.К.",
+                            en_US = "J.K.",
+                            kaa_UZ = "J.K."
+                        },
+                        LastName = new TranslationModel
+                        {
+                            uz_UZ = "Rowling",
+                            ru_RU = "Роулинг",
+                            en_US = "Rowling",
+                            kaa_UZ = "Rowling"
+                        }
+                    }
                 });
             }
 
@@ -265,8 +372,25 @@ namespace IQtidorly.Api.Data
                 context.BookAuthors.Add(new BookAuthor
                 {
                     BookAuthorId = _georgeOrwellAuthorId,
-                    FirsName = "George",
-                    LastName = "Orwell"
+                    FirstName = "George",
+                    LastName = "Orwell",
+                    Translations = new BookAuthorTranslation
+                    {
+                        FirstName = new TranslationModel
+                        {
+                            uz_UZ = "George",
+                            ru_RU = "Джордж",
+                            en_US = "George",
+                            kaa_UZ = "George"
+                        },
+                        LastName = new TranslationModel
+                        {
+                            uz_UZ = "Orwell",
+                            ru_RU = "Оруэлл",
+                            en_US = "Orwell",
+                            kaa_UZ = "Orwell"
+                        }
+                    }
                 });
             }
 
@@ -278,6 +402,23 @@ namespace IQtidorly.Api.Data
                     BookId = _harryPotterBookId,
                     Title = "Harry Potter and the Philosopher's Stone",
                     Description = "A young wizard's journey begins.",
+                    Translations = new BookTranslation()
+                    {
+                        Title = new TranslationModel
+                        {
+                            uz_UZ = "Harry Potter va Falsafur San'ati",
+                            ru_RU = "Гарри Поттер и философский камень",
+                            en_US = "Harry Potter and the Philosopher's Stone",
+                            kaa_UZ = "Harry Potter va Falsafur San'ati"
+                        },
+                        Description = new TranslationModel
+                        {
+                            uz_UZ = "Yosh qahramonning sayrasi boshlanadi.",
+                            ru_RU = "Путешествие молодого волшебника начинается.",
+                            en_US = "A young wizard's journey begins.",
+                            kaa_UZ = "Yosh qahramonning sayrasi boshlanadi."
+                        }
+                    },
                     BookAuthorId = _jKRowlingAuthorId,
                     TotalPages = 223,
                     Price = 19.99m
@@ -291,6 +432,23 @@ namespace IQtidorly.Api.Data
                     BookId = _animalFarmBookId,
                     Title = "Animal Farm",
                     Description = "A satirical allegory of Soviet totalitarianism.",
+                    Translations = new BookTranslation()
+                    {
+                        Title = new TranslationModel
+                        {
+                            uz_UZ = "Hayvonlar Oromi",
+                            ru_RU = "Ферма животных",
+                            en_US = "Animal Farm",
+                            kaa_UZ = "Hayvonlar Oromi"
+                        },
+                        Description = new TranslationModel
+                        {
+                            uz_UZ = "Sovet totalitarizmi haqida satira alegoriyasi.",
+                            ru_RU = "Сатирическая аллегория советского тоталитаризма.",
+                            en_US = "A satirical allegory of Soviet totalitarianism.",
+                            kaa_UZ = "Sovet totalitarizmi haqida satira alegoriyasi."
+                        }
+                    },
                     BookAuthorId = _georgeOrwellAuthorId,
                     TotalPages = 112,
                     Price = 9.99m
