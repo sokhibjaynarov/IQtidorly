@@ -154,6 +154,8 @@ namespace IQtidorly.Api
             services.AddScoped<IBookAuthorService, BookAuthorService>();
             services.AddScoped<ISubjectChapterService, SubjectChapterService>();
             services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<IQuizService, QuizService>();
+            services.AddScoped<IQuizSubmissionService, QuizSubmissionService>();
 
             services.AddScoped<IRequestLanguageHelper, RequestLanguageHelper>();
         }
