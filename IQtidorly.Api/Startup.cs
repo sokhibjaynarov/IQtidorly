@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
+using Scalar.AspNetCore;
 using System;
 using System.Threading.Tasks;
 
@@ -106,6 +107,7 @@ namespace IQtidorly.Api
 
             #endregion
 
+            services.AddOpenApi();
             services.AddMemoryCache();
             AddRepositories(services);
             AddServices(services);
@@ -137,6 +139,8 @@ namespace IQtidorly.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapOpenApi();
+                endpoints.MapScalarApiReference();
             });
 
             // Seed data
