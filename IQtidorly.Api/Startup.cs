@@ -156,6 +156,7 @@ namespace IQtidorly.Api
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IQuizService, QuizService>();
             services.AddScoped<IQuizSubmissionService, QuizSubmissionService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IRequestLanguageHelper, RequestLanguageHelper>();
         }

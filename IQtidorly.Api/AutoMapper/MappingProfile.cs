@@ -26,6 +26,8 @@ namespace IQtidorly.Api.AutoMapper
         {
             // Users
             CreateMap<User, CreateUserViewModel>().ReverseMap();
+            CreateMap<User, UserInfoViewModel>()
+                .ForMember(p => p.UserId, opt => opt.MapFrom(src => src.Id));
 
             // AgeGroups
             CreateMap<AgeGroupForCreateModel, AgeGroup>();

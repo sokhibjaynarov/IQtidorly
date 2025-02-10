@@ -1,18 +1,32 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using IQtidorly.Api.Interfaces;
+using IQtidorly.Api.Response;
 using Microsoft.AspNetCore.Mvc;
-using IQtidorly.Api.Models.Users;
+using System.Threading.Tasks;
 
 namespace IQtidorly.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-
-        public UsersController(UserManager<User> userManager)
+        private IUserService _userService;
+        public UsersController(IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
+        }
+
+        [HttpGet("userinfo")]
+        public async Task<JsonResponse> GetUserInfo()
+        {
+            try
+            {
+                var userInfo = await _userService.GetUserInfoAsync();
+                return JsonResponse.DataResponse(userInfo);
+            }
+            catch (ErrorCodeException ex)
+            {
+                return JsonResponse.ErrorResponse(ex.Message);
+            }
         }
     }
 }
