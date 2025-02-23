@@ -5,24 +5,30 @@ using IQtidorly.Api.Data.IRepositories;
 using IQtidorly.Api.Data.IRepositories.Base;
 using IQtidorly.Api.Data.Repositories;
 using IQtidorly.Api.Data.Repositories.Base;
-using IQtidorly.Api.Extensions;
 using IQtidorly.Api.Helpers;
 using IQtidorly.Api.Interfaces;
 using IQtidorly.Api.Middlewares;
 using IQtidorly.Api.Models.Users;
 using IQtidorly.Api.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OpenApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
 using Npgsql;
 using Scalar.AspNetCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IQtidorly.Api
@@ -68,7 +74,6 @@ namespace IQtidorly.Api
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
-            services.ConfigureSwagger(Configuration);
 
             services.AddCors(options =>
             {
@@ -84,7 +89,7 @@ namespace IQtidorly.Api
 
             services.AddControllers()
                 .AddNewtonsoftJson(opts =>
-                    opts.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter()));
+                    opts.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
             #region JWT Authentication
             var key = System.Text.Encoding.UTF8.GetBytes(Configuration.GetSection("JWT:Key").Value);
@@ -107,7 +112,7 @@ namespace IQtidorly.Api
 
             #endregion
 
-            services.AddOpenApi();
+            services.AddOpenApi("v1", options => { options.AddDocumentTransformer<BearerSecuritySchemeTransformer>(); });
             services.AddMemoryCache();
             AddRepositories(services);
             AddServices(services);
@@ -118,14 +123,6 @@ namespace IQtidorly.Api
             if (environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint(
-                    url: "/swagger/v1/swagger.json",
-                    name: "IQtidorly.Api v1");
-                });
             }
 
             app.UseHttpsRedirection();
@@ -140,7 +137,18 @@ namespace IQtidorly.Api
             {
                 endpoints.MapControllers();
                 endpoints.MapOpenApi();
-                endpoints.MapScalarApiReference();
+                endpoints.MapScalarApiReference(options =>
+                {
+                    options.Title = "IQtidorly.Api v1";
+
+                    options.Authentication = new ScalarAuthenticationOptions
+                    {
+                        ApiKey = new ApiKeyOptions
+                        {
+                            Token = "your-api-key"
+                        }
+                    };
+                });
             });
 
             // Seed data
@@ -196,6 +204,53 @@ namespace IQtidorly.Api
                 await ContextSeed.SeedSubjectsAndChaptersAsync(context);
                 await ContextSeed.SeedBooksAndAuthorsAsync(context);
                 await ContextSeed.SeedAgeGroupsAsync(context);
+            }
+        }
+    }
+
+    internal sealed class BearerSecuritySchemeTransformer : IOpenApiDocumentTransformer
+    {
+        private readonly IAuthenticationSchemeProvider _authenticationSchemeProvider;
+
+        public BearerSecuritySchemeTransformer(IAuthenticationSchemeProvider authenticationSchemeProvider)
+        {
+            _authenticationSchemeProvider = authenticationSchemeProvider;
+        }
+
+        public async Task TransformAsync(OpenApiDocument document, OpenApiDocumentTransformerContext context, CancellationToken cancellationToken)
+        {
+            var authenticationSchemes = await _authenticationSchemeProvider.GetAllSchemesAsync();
+
+            if (authenticationSchemes.Any(authScheme => authScheme.Name == "Bearer"))
+            {
+                var requirements = new Dictionary<string, OpenApiSecurityScheme>
+                {
+                    ["Bearer"] = new OpenApiSecurityScheme
+                    {
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer",
+                        In = ParameterLocation.Header,
+                        BearerFormat = "JWT"
+                    }
+                };
+
+                document.Components ??= new OpenApiComponents();
+                document.Components.SecuritySchemes = requirements;
+
+                foreach (var operation in document.Paths.Values.SelectMany(path => path.Operations))
+                {
+                    operation.Value.Security.Add(new OpenApiSecurityRequirement
+                    {
+                        [new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        }] = Array.Empty<string>()
+                    });
+                }
             }
         }
     }

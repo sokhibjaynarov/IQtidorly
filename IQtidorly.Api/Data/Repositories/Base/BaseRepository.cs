@@ -1,5 +1,6 @@
 ﻿using IQtidorly.Api.Attributes;
 using IQtidorly.Api.Data.IRepositories.Base;
+using IQtidorly.Api.Extensions;
 using IQtidorly.Api.Helpers;
 using IQtidorly.Api.Models.Base;
 using Microsoft.EntityFrameworkCore;
@@ -60,12 +61,14 @@ namespace IQtidorly.Api.Data.Repositories.Base
 
         public virtual IQueryable<TEntity> GetAll(bool includeRemovedEntities = false)
         {
+            var preferredLanguage = _languageHelper.PreferredLanguage;
+
             if (typeof(TEntity).GetInterfaces().Contains(typeof(IEntityPersistent)) && includeRemovedEntities == false)
             {
-                return Entities.Where(l => (l as IEntityPersistent).EntityState == Enums.EntityState.Active);
+                return Entities.Where(l => (l as IEntityPersistent).EntityState == Enums.EntityState.Active).ApplyTranslations(preferredLanguage);
             }
 
-            return Entities;
+            return Entities.ApplyTranslations(preferredLanguage);
         }
 
         public async Task<TEntity> GetAsync(Guid id, bool includeRemovedEntities = false)
@@ -272,9 +275,5 @@ namespace IQtidorly.Api.Data.Repositories.Base
             // If translation is missing, return null or default behavior
             return null;
         }
-
-
-
-
     }
 }
