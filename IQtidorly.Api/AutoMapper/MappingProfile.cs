@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IQtidorly.Api.Middlewares;
 using IQtidorly.Api.Models.AgeGroups;
 using IQtidorly.Api.Models.BookAuthors;
 using IQtidorly.Api.Models.Books;
@@ -17,12 +18,13 @@ using IQtidorly.Api.ViewModels.Quizzes;
 using IQtidorly.Api.ViewModels.SubjectChapters;
 using IQtidorly.Api.ViewModels.Subjects;
 using IQtidorly.Api.ViewModels.Users;
+using Microsoft.AspNetCore.Http;
 
 namespace IQtidorly.Api.AutoMapper
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile()
+        public MappingProfile(IHttpContextAccessor httpContextAccessor)
         {
             // Users
             CreateMap<User, CreateUserViewModel>().ReverseMap();
@@ -38,7 +40,9 @@ namespace IQtidorly.Api.AutoMapper
             // Books
             CreateMap<Book, BookForCreateModel>().ReverseMap();
             CreateMap<Book, BookForUpdateModel>().ReverseMap();
-            CreateMap<Book, BookForGetModel>().ReverseMap();
+            CreateMap<Book, BookForGetModel>()
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(new TranslationResolver<Book>(httpContextAccessor, "Title")))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(new TranslationResolver<Book>(httpContextAccessor, "Description"))); ;
 
             // BookAuthors
             CreateMap<BookAuthor, BookAuthorForCreateModel>().ReverseMap();

@@ -1,7 +1,4 @@
-﻿using IQtidorly.Api.Attributes;
-using IQtidorly.Api.Data.IRepositories.Base;
-using IQtidorly.Api.Extensions;
-using IQtidorly.Api.Helpers;
+﻿using IQtidorly.Api.Data.IRepositories.Base;
 using IQtidorly.Api.Models.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,15 +10,13 @@ namespace IQtidorly.Api.Data.Repositories.Base
 {
     public class BaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity, TDbContext> where TEntity : BaseModel where TDbContext : DbContext
     {
-        private readonly IRequestLanguageHelper _languageHelper;
 
         public TDbContext DbContext { get; set; }
         public DbSet<TEntity> Entities { get => DbContext.Set<TEntity>(); }
 
-        public BaseRepository(TDbContext dbContext, IRequestLanguageHelper languageHelper)
+        public BaseRepository(TDbContext dbContext)
         {
             DbContext = dbContext;
-            _languageHelper = languageHelper;
         }
 
         public virtual async Task<TEntity> AddAsync(TEntity entity)
@@ -61,14 +56,13 @@ namespace IQtidorly.Api.Data.Repositories.Base
 
         public virtual IQueryable<TEntity> GetAll(bool includeRemovedEntities = false)
         {
-            var preferredLanguage = _languageHelper.PreferredLanguage;
 
             if (typeof(TEntity).GetInterfaces().Contains(typeof(IEntityPersistent)) && includeRemovedEntities == false)
             {
-                return Entities.Where(l => (l as IEntityPersistent).EntityState == Enums.EntityState.Active).ApplyTranslations(preferredLanguage);
+                return Entities.Where(l => (l as IEntityPersistent).EntityState == Enums.EntityState.Active);
             }
 
-            return Entities.ApplyTranslations(preferredLanguage);
+            return Entities;
         }
 
         public async Task<TEntity> GetAsync(Guid id, bool includeRemovedEntities = false)
@@ -79,10 +73,6 @@ namespace IQtidorly.Api.Data.Repositories.Base
             {
                 return null;
             }
-
-            // Apply translations
-            var preferredLanguage = _languageHelper.PreferredLanguage;
-            ApplyTranslationsToEntity(entity, preferredLanguage);
 
             return entity;
         }
@@ -199,81 +189,81 @@ namespace IQtidorly.Api.Data.Repositories.Base
             DbContext.UpdateRange(entities);
         }
 
-        private async Task<List<TEntity>> ApplyTranslationsAsync(IQueryable<TEntity> query, string preferredLanguage)
-        {
-            // First, execute the query and load the entities into memory.
-            var entities = await query.ToListAsync();
+        //private async Task<List<TEntity>> ApplyTranslationsAsync(IQueryable<TEntity> query, string preferredLanguage)
+        //{
+        //    // First, execute the query and load the entities into memory.
+        //    var entities = await query.ToListAsync();
 
-            // Apply translations to each entity after it has been retrieved.
-            foreach (var entity in entities)
-            {
-                ApplyTranslationsToEntity(entity, preferredLanguage);
-            }
+        //    // Apply translations to each entity after it has been retrieved.
+        //    foreach (var entity in entities)
+        //    {
+        //        ApplyTranslationsToEntity(entity, preferredLanguage);
+        //    }
 
-            return entities;
-        }
+        //    return entities;
+        //}
 
-        private void ApplyTranslationsToEntity(TEntity entity, string preferredLanguage)
-        {
-            if (entity == null) return;
+        //private void ApplyTranslationsToEntity(TEntity entity, string preferredLanguage)
+        //{
+        //    if (entity == null) return;
 
-            // Find the translation property on the entity
-            var translationProperty = entity.GetType().GetProperties()
-                .FirstOrDefault(p => p.Name.EndsWith("Translation")); // Convention: <Model>Translation
+        //    // Find the translation property on the entity
+        //    var translationProperty = entity.GetType().GetProperties()
+        //        .FirstOrDefault(p => p.Name.EndsWith("Translation")); // Convention: <Model>Translation
 
-            if (translationProperty != null)
-            {
-                // Get the translation model from the property
-                var translationModel = translationProperty.GetValue(entity) as dynamic; // We use dynamic to access properties like 'Name' in the translation model
+        //    if (translationProperty != null)
+        //    {
+        //        // Get the translation model from the property
+        //        var translationModel = translationProperty.GetValue(entity) as dynamic; // We use dynamic to access properties like 'Name' in the translation model
 
-                if (translationModel != null)
-                {
-                    // Get all properties that have the Translatable attribute
-                    var translatableProperties = entity.GetType().GetProperties()
-                        .Where(p => Attribute.IsDefined(p, typeof(TranslatableAttribute)))
-                        .ToList();
+        //        if (translationModel != null)
+        //        {
+        //            // Get all properties that have the Translatable attribute
+        //            var translatableProperties = entity.GetType().GetProperties()
+        //                .Where(p => Attribute.IsDefined(p, typeof(TranslatableAttribute)))
+        //                .ToList();
 
-                    foreach (var property in translatableProperties)
-                    {
-                        // For each translatable property, find its corresponding translation field in the translation model
-                        var translationPropertyName = $"{property.Name}"; // The name of the translatable field, e.g., 'Name'
+        //            foreach (var property in translatableProperties)
+        //            {
+        //                // For each translatable property, find its corresponding translation field in the translation model
+        //                var translationPropertyName = $"{property.Name}"; // The name of the translatable field, e.g., 'Name'
 
-                        // Get the value of the translation field for the preferred language
-                        var translatedValue = GetTranslationValue(translationModel, translationPropertyName, preferredLanguage);
+        //                // Get the value of the translation field for the preferred language
+        //                var translatedValue = GetTranslationValue(translationModel, translationPropertyName, preferredLanguage);
 
-                        if (translatedValue != null)
-                        {
-                            // Set the translated value to the actual property
-                            property.SetValue(entity, translatedValue);
-                        }
-                    }
-                }
-            }
-        }
+        //                if (translatedValue != null)
+        //                {
+        //                    // Set the translated value to the actual property
+        //                    property.SetValue(entity, translatedValue);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
-        private string GetTranslationValue(dynamic translationModel, string propertyName, string language)
-        {
-            // Get the specific property from the translation model (e.g., "Name")
-            var property = translationModel.GetType().GetProperty(propertyName);
+        //private string GetTranslationValue(dynamic translationModel, string propertyName, string language)
+        //{
+        //    // Get the specific property from the translation model (e.g., "Name")
+        //    var property = translationModel.GetType().GetProperty(propertyName);
 
-            if (property != null)
-            {
-                // Access the nested translation object (e.g., TranslationModel for "Name")
-                var nestedTranslation = property.GetValue(translationModel);
+        //    if (property != null)
+        //    {
+        //        // Access the nested translation object (e.g., TranslationModel for "Name")
+        //        var nestedTranslation = property.GetValue(translationModel);
 
-                if (nestedTranslation != null)
-                {
-                    // Get the language-specific value from the nested translation object (e.g., "en_US")
-                    var languageProperty = nestedTranslation.GetType().GetProperty(language);
-                    if (languageProperty != null)
-                    {
-                        return (string)languageProperty.GetValue(nestedTranslation);
-                    }
-                }
-            }
+        //        if (nestedTranslation != null)
+        //        {
+        //            // Get the language-specific value from the nested translation object (e.g., "en_US")
+        //            var languageProperty = nestedTranslation.GetType().GetProperty(language);
+        //            if (languageProperty != null)
+        //            {
+        //                return (string)languageProperty.GetValue(nestedTranslation);
+        //            }
+        //        }
+        //    }
 
-            // If translation is missing, return null or default behavior
-            return null;
-        }
+        //    // If translation is missing, return null or default behavior
+        //    return null;
+        //}
     }
 }

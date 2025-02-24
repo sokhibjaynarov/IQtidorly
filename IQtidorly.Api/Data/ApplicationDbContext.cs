@@ -13,7 +13,6 @@ using IQtidorly.Api.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System;
 
 namespace IQtidorly.Api.Data
@@ -71,22 +70,7 @@ namespace IQtidorly.Api.Data
             modelBuilder.Entity<AgeGroup>()
                 .Property(ag => ag.Translations)
                 .HasColumnType("jsonb");
-
-            modelBuilder
-            .HasDbFunction(typeof(ApplicationDbContext).GetMethod(nameof(JsonExtractPathText),
-                new[] { typeof(string), typeof(string), typeof(string) }))
-            .HasTranslation(args =>
-                new SqlFunctionExpression(
-                    "jsonb_extract_path_text",
-                    typeof(string),
-                    args));
-
         }
-
-        public static string JsonExtractPathText(string jsonbData, string language, string property)
-        => throw new NotSupportedException("Direct calls are not supported. This method is translated to SQL.");
-
-
 
         public DbSet<AgeGroup> AgeGroups { get; set; }
         public DbSet<Book> Books { get; set; }

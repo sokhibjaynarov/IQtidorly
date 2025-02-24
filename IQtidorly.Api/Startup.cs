@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OpenApi;
 using Microsoft.EntityFrameworkCore;
@@ -69,7 +70,7 @@ namespace IQtidorly.Api
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new MappingProfile());
+                mc.AddProfile(new MappingProfile(new HttpContextAccessor()));
             });
 
             IMapper mapper = mapperConfig.CreateMapper();
@@ -90,6 +91,8 @@ namespace IQtidorly.Api
             services.AddControllers()
                 .AddNewtonsoftJson(opts =>
                     opts.SerializerSettings.Converters.Add(new StringEnumConverter()));
+
+            services.AddHttpContextAccessor();
 
             #region JWT Authentication
             var key = System.Text.Encoding.UTF8.GetBytes(Configuration.GetSection("JWT:Key").Value);
