@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IQtidorly.Api.Models.BookAuthors;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace IQtidorly.Api.ViewModels.BookAuthors
@@ -13,5 +14,7 @@ namespace IQtidorly.Api.ViewModels.BookAuthors
 
         [Required]
         public Guid PhotoFileId { get; set; }
+
+        public BookAuthorTranslation Translations { get; set; }
     }
 }

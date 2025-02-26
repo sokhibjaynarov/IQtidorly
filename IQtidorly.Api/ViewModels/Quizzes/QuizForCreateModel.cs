@@ -1,4 +1,5 @@
 ﻿using IQtidorly.Api.Enums;
+using IQtidorly.Api.Models.Quizzes;
 using IQtidorly.Api.ViewModels.QuizQuestions;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace IQtidorly.Api.ViewModels.Quizzes
         public DateTime RegistrationEndDate { get; set; }
 
         public List<QuizQuestionForSaveModel> QuizQuestions { get; set; }
+
+        public QuizTranslation Translations { get; set; }
     }
 }

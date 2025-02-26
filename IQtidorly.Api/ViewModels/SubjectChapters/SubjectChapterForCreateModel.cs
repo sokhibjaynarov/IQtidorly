@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IQtidorly.Api.Models.SubjectChapters;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace IQtidorly.Api.ViewModels.SubjectChapters
@@ -10,5 +11,7 @@ namespace IQtidorly.Api.ViewModels.SubjectChapters
 
         [Required]
         public Guid SubjectId { get; set; }
+
+        public SubjectChapterTranslation Translations { get; set; }
     }
 }

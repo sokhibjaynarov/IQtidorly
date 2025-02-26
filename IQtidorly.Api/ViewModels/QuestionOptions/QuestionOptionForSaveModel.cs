@@ -1,4 +1,5 @@
 ﻿using IQtidorly.Api.Enums;
+using IQtidorly.Api.Models.QuestionOptions;
 using System;
 
 namespace IQtidorly.Api.ViewModels.QuestionOptions
@@ -9,5 +10,6 @@ namespace IQtidorly.Api.ViewModels.QuestionOptions
         public string Content { get; set; }
         public bool IsCorrect { get; set; }
         public State State { get; set; }
+        public QuestionOptionTranslation Translations { get; set; }
     }
 }

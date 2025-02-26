@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using IQtidorly.Api.Models.Subjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace IQtidorly.Api.ViewModels.Subjects
 {
@@ -6,5 +7,7 @@ namespace IQtidorly.Api.ViewModels.Subjects
     {
         [Required]
         public string Name { get; set; }
+
+        public SubjectTranslation Translations { get; set; }
     }
 }

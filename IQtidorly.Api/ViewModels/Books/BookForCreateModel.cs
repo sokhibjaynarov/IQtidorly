@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IQtidorly.Api.Models.Books;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace IQtidorly.Api.ViewModels.Books
@@ -28,5 +29,7 @@ namespace IQtidorly.Api.ViewModels.Books
 
         [Required]
         public Guid BookAuthorId { get; set; }
+
+        public BookTranslation Translations { get; set; }
     }
 }
